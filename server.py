@@ -100,7 +100,6 @@ def predict():
         data["success"] = True
 
     data["predictions"] = results
-
     return flask.jsonify(data)
 
 
