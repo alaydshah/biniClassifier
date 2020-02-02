@@ -33,25 +33,19 @@ class Classifier:
     def get_image_labels(self, imagePath):
         answer = None
 
-        # if not tf.gfile.Exists(imagePath):
-        #     tf.logging.fatal('File does not exist %s', imagePath)
-        #     return answer
-        #
-        # image_data = tf.gfile.FastGFile(imagePath, 'rb').read()
-
         req = urllib.request.Request(imagePath)
         response = urllib.request.urlopen(req)
 
         image_data = response.read()
-        print(image_data)
+#        print(image_data)
 
         predictions = self.sess.run(self.softmax_tensor,
                                {'DecodeJpeg/contents:0': image_data})
         predictions = np.squeeze(predictions)
         print(predictions)
         top_k = predictions.argsort()[-6:][::-1] # Getting top 5 predictions
-        print("TopK:")
-        print(top_k)
+#        print("TopK:")
+#        print(top_k)
         f = open(self.labelPath, 'rb')
         lines = f.readlines()
         labels = [str(w).replace("\n", "") for w in lines]
@@ -83,6 +77,7 @@ def predict():
 
     # Check if image was properly sent to our endpoint
     if flask.request.method == "POST":
+        print(request.form)
         imguri = flask.request.form['imageUri']
         if flask.request.form["imageUri"]:
             image_path = flask.request.form["imageUri"]
