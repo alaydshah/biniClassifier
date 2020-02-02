@@ -43,14 +43,14 @@ class Classifier:
         predictions = self.sess.run(self.softmax_tensor,
                                {'DecodeJpeg/contents:0': image_data})
         predictions = np.squeeze(predictions)
-        print(predictions)
+#        print(predictions)
         top_k = predictions.argsort()[-6:][::-1] # Getting top 5 predictions
 #        print("TopK:")
 #        print(top_k)
         f = open(self.labelPath, 'rb')
         lines = f.readlines()
         labels = [str(w).replace("\n", "") for w in lines]
-        print(labels)
+#        print(labels)
         answers = []
         for node_id in top_k:
             human_string = labels[node_id]
@@ -78,8 +78,9 @@ def predict():
 
     # Check if image was properly sent to our endpoint
     if flask.request.method == "POST":
-        print(flask.request.form)
+#        print(flask.request.form)
         imguri = flask.request.form['imageUri']
+        print(imguri)
         if flask.request.form["imageUri"]:
             image_path = flask.request.form["imageUri"]
             labels = classifier.get_image_labels(image_path)
