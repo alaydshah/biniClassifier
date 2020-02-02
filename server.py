@@ -78,8 +78,10 @@ def predict():
 
     # Check if image was properly sent to our endpoint
     if flask.request.method == "POST":
-#        print(flask.request.form)
+        print("Request Form:")
+        print(flask.request.form)
         imguri = flask.request.form['imageUri']
+        print("Image Path:")
         print(imguri)
         if flask.request.form["imageUri"]:
             image_path = flask.request.form["imageUri"]
